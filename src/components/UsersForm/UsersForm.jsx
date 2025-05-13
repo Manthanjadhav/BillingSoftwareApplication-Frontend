@@ -1,11 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
+import { addUser } from "../../service/UserService";
+import toast from "react-hot-toast";
 
-export default function UsersForm() {
+export default function UsersForm({ setUsers }) {
+  const [loading, setLoading] = useState(false);
+
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "ROLE_USER",
+  });
+
+  const onChangeHandler = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setData(() => ({ ...data, [name]: value }));
+  };
+
+  const onSubmitHandler = async (e) => {
+    console.log("Inside on SubmitHandler");
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await addUser(data);
+      setUsers((prev) => [...prev, response.data]);
+      toast.success("User Added Successfull!");
+      setData({
+        name: "",
+        email: "",
+        password: "",
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Unable to add User");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="mx-2 mt-2">
-      <div className="card col-md-8 form-container">
+      <div className="card col-md-12 form-container">
         <div className="card-body">
-          <form>
+          <form onSubmit={onSubmitHandler}>
             <div className="mb-3">
               <label htmlFor="name" className="form-label">
                 Name
@@ -15,7 +53,9 @@ export default function UsersForm() {
                 id="name"
                 type="text"
                 className="form-control"
-                placeholder="Category Name"
+                placeholder="Enter User Name"
+                value={data.name}
+                onChange={onChangeHandler}
               />
             </div>
 
@@ -29,11 +69,13 @@ export default function UsersForm() {
                 type="email"
                 className="form-control"
                 placeholder="Enter your email"
+                value={data.email}
+                onChange={onChangeHandler}
               />
             </div>
             <div className="mb-3">
               <label htmlFor="password" className="form-label">
-                Email
+                Password
               </label>
               <input
                 name="password"
@@ -41,11 +83,17 @@ export default function UsersForm() {
                 type="password"
                 className="form-control"
                 placeholder="************"
+                value={data.password}
+                onChange={onChangeHandler}
               />
             </div>
 
-            <button type="submit" className="btn btn-warning w-100">
-              Save
+            <button
+              type="submit"
+              className="btn btn-warning w-100"
+              disabled={loading}
+            >
+              {loading ? "loading..." : "Save"}
             </button>
           </form>
         </div>

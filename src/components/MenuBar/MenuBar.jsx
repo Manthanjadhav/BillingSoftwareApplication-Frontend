@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./MenuBar.css";
 import { assets } from "../../assets/assets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import AppContext from "../../context/AppContext";
 const MenuBar = () => {
+  const { setAuthData } = useContext(AppContext);
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    setAuthData(null, null);
+    navigate("/login");
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-2">
       <a className="navbar-brand" href="#">
@@ -45,6 +54,43 @@ const MenuBar = () => {
             <Link className="nav-link" to="/users">
               Manage Users
             </Link>
+          </li>
+        </ul>
+        <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+          <li className="nav-item dropdown">
+            <a
+              className="nav-link dropdown-toggle"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              href="#"
+            >
+              <img src={assets.profile} alt="" height={32} width={32} />
+            </a>
+            <ul
+              className="dropdown-menu dropdown-menu-end"
+              aria-labelledby="navbarDropdown"
+            >
+              <li>
+                <Link to="/settings" className="dropdown-item">
+                  Settings
+                </Link>
+              </li>
+              <li>
+                <Link to="/activity-log" className="dropdown-item">
+                  Activity log
+                </Link>
+              </li>
+              <li>
+                <hr className="dropdown-divider" />
+              </li>
+              <li>
+                <a onClick={logout} className="dropdown-item">
+                  Logout
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>

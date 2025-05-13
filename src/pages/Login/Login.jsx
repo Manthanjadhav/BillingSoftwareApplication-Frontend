@@ -43,7 +43,10 @@ function Login() {
 
   return (
     <div className="bg-light d-flex align-items-center justify-content-center vh-100 login-background">
-      <div className="card shadow-lg w-100" style={{ maxWidth: "480px" }}>
+      <div
+        className="login-card card shadow-lg w-100"
+        style={{ maxWidth: "480px" }}
+      >
         <div className="card-body">
           <div className="text-center">
             <h1 className="card-title">Sign in</h1>
@@ -82,8 +85,12 @@ function Login() {
                 />
               </div>
               <div className="d-grid">
-                <button type="submit" className="btn btn-dark btn-lg">
-                  Sign in
+                <button
+                  type="submit"
+                  className="btn btn-dark btn-lg"
+                  disabled={loading}
+                >
+                  {loading ? "loading..." : "Sign in"}
                 </button>
               </div>
             </form>

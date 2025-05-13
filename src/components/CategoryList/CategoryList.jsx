@@ -29,6 +29,7 @@ const CategoryList = () => {
       toast.error("Unable to delete the category!");
     }
   };
+  console.log(categories);
   return (
     <div
       className="category-list-container"
