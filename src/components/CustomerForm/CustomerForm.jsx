@@ -8,7 +8,7 @@ export default function CustomerForm({
 }) {
   return (
     <div className="p-2">
-      <div className="mb-3">
+      <div className="mb-1">
         <div className="d-flex align-items-center gap-2">
           <label htmlFor="customerName" className="col-4">
             Customer Name
@@ -22,7 +22,7 @@ export default function CustomerForm({
           />
         </div>
       </div>
-      <div className="mb-3">
+      <div className="mb-1">
         <div className="d-flex align-items-center gap-2">
           <label htmlFor="customerNumber" className="col-4">
             Mobile Number

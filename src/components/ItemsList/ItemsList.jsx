@@ -52,7 +52,7 @@ export default function ItemsList() {
       </div>
       <div className="row g-3 pe-2">
         {filterItems.map((item, index) => (
-          <div className="card p-3 bg-dark">
+          <div key={index} className="card p-3 bg-dark">
             <div className="d-flex align-items-center">
               <div style={{ marginRight: "15px" }}>
                 <img src={item.imgUrl} alt={item.name} className="item-image" />

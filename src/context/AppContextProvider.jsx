@@ -26,6 +26,18 @@ export default function AppContextProvider({ children }) {
     }
   };
 
+  const removeFromCart = (itemId) => {
+    setCartItems(cartItems.filter((item) => item.itemId != itemId));
+  };
+
+  const updateQuantity = (itemId, newQuantity) => {
+    setCartItems(
+      cartItems.map((item) =>
+        item.itemId === itemId ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
   useEffect(() => {
     async function loadData() {
       if (localStorage.getItem("token") && localStorage.getItem("role")) {
@@ -55,6 +67,8 @@ export default function AppContextProvider({ children }) {
     setItems,
     addToCart,
     cartItems,
+    removeFromCart,
+    updateQuantity,
   };
 
   return (

@@ -27,7 +27,7 @@ const Explore = () => {
         </div>
       </div>
       <div className="right-column d-flex flex-column">
-        <div className="customer-form-container" style={{ height: "25%" }}>
+        <div className="customer-form-container" style={{ height: "20%" }}>
           <CustomerForm
             customerName={customerName}
             setCustomerName={setCustomerName}
@@ -38,12 +38,17 @@ const Explore = () => {
         <hr className="my-3 text-light" />
         <div
           className="cart-items-container"
-          style={{ height: "45%", overflowY: "auto" }}
+          style={{ height: "40%", overflowY: "auto" }}
         >
           <CartItems />
         </div>
-        <div className="cart-summary-container" style={{ height: "30%" }}>
-          <CartSummary />
+        <div className="cart-summary-container" style={{ height: "40%" }}>
+          <CartSummary
+            customerName={customerName}
+            setCustomerName={setCustomerName}
+            setMobileNumber={setMobileNumber}
+            mobileNumber={mobileNumber}
+          />
         </div>
       </div>
     </div>
