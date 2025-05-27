@@ -7,6 +7,7 @@ import ManageItems from "./pages/ManageItems/ManageItems";
 import Explore from "./pages/Explore/Explore";
 import { Toaster } from "react-hot-toast";
 import Login from "./pages/Login/login";
+import OrderHistory from "./components/OrderHistory/OrderHistory";
 function App() {
   const location = useLocation();
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/explore" element={<Explore />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/orders" element={<OrderHistory />} />
       </Routes>
     </div>
   );

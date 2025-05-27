@@ -40,22 +40,33 @@ export default function AppContextProvider({ children }) {
 
   useEffect(() => {
     async function loadData() {
-      if (localStorage.getItem("token") && localStorage.getItem("role")) {
-        setAuthData(
-          localStorage.getItem("token"),
-          localStorage.getItem("role")
-        );
+      try {
+        const token = localStorage.getItem("token");
+        const role = localStorage.getItem("role");
+        if (token && role) {
+          setAuthData(token, role);
+        }
+
+        const response = await fetchCategory();
+        const itemresponse = await fetchItems();
+
+        setCategories(response.data);
+        setItems(itemresponse.data);
+      } catch (error) {
+        console.error("Failed to load data", error);
+        // Optional: set error state or show notification
       }
-      const response = await fetchCategory();
-      const itemresponse = await fetchItems();
-      setCategories(response.data);
-      setItems(itemresponse.data);
     }
+
     loadData();
   }, []);
 
   const setAuthData = (token, role) => {
     setAuth({ token, role });
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
   };
 
   const contextValue = {
@@ -69,6 +80,7 @@ export default function AppContextProvider({ children }) {
     cartItems,
     removeFromCart,
     updateQuantity,
+    clearCart,
   };
 
   return (
