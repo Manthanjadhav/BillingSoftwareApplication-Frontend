@@ -36,3 +36,8 @@
     white-space: nowrap;
   }
 }
+
+.table-scroll {
+  max-height: 435px; /* or any height you prefer */
+  overflow-y: auto;
+}
