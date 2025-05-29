@@ -47,7 +47,7 @@ export default function OrderHistory() {
   return (
     <div className="order-history-container">
       <h2 className="mb-2 text-light">All Orders</h2>
-      <div className="table-responsive">
+      <div className="table- table-scroll">
         <table className="table table-striped table-hover">
           <thead className="table-dark">
             <tr>
