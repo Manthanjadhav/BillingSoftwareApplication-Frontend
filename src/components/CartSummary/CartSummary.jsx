@@ -65,12 +65,14 @@ export default function CartSummary({
   };
 
   const completePayment = async (paymentMode) => {
-    if (!customerName) {
-      toast.error("Please enter a valid customer name!");
+    if (!customerName.trim() || customerName.trim().length < 3) {
+      toast.error("Customer name must be at least 3 characters long!");
       return;
     }
-    if (!mobileNumber) {
-      toast.error("Please enter a valid mobile number!");
+
+    const mobileRegex = /^[6-9]\d{9}$/;
+    if (!mobileNumber.trim() || !mobileRegex.test(mobileNumber)) {
+      toast.error("Please enter a valid 10-digit mobile number!");
       return;
     }
 

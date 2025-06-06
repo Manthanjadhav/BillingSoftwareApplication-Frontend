@@ -23,16 +23,34 @@ export default function ItemsForm() {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
+    // Form validation
+    if (!image) {
+      toast.error("Please select item image");
+      return;
+    }
+    if (!data.name || data.name.trim().length < 3) {
+      toast.error("Name must be at least 3 characters long");
+      return;
+    }
+    if (!data.description || data.description.trim().length < 10) {
+      toast.error("Description must be at least 10 characters long");
+      return;
+    }
+    if (!data.categoryId) {
+      toast.error("Please select a category");
+      return;
+    }
+    if (!data.price || isNaN(data.price) || Number(data.price) <= 0) {
+      toast.error("Please enter a valid price greater than 0");
+      return;
+    }
+
     setLoading(true);
     const formData = new FormData();
     formData.append("item", JSON.stringify(data));
     formData.append("file", image);
 
     try {
-      if (!image) {
-        toast.error("Please select item image");
-        return;
-      }
       const response = await addItems(formData);
       if (response.status == 201) {
         setItems([...items, response.data]);

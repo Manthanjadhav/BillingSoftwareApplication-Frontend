@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { fetchDashboardData } from "../../service/Dashboard";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
   const [data, setData] = useState(null);

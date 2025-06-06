@@ -42,7 +42,7 @@ export default function UsersList({ users, setUsers }) {
       </div>
       <div className="row g-3 pe-2">
         {filterUsers.map((user, index) => (
-          <div className="card p-3 bg-dark">
+          <div key={user.userId} className="card p-3 bg-dark">
             <div className="d-flex align-items-center">
               <div className="flex-grow-1">
                 <h5 className="mb-1 text-white">{user.name}</h5>

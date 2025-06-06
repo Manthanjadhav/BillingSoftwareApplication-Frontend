@@ -23,11 +23,25 @@ const CategoryForm = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+
+    // Validation
     if (!image) {
-      toast.error("Please Upload Image...");
+      toast.error("Please upload an image");
       return;
     }
+
+    if (!data.name.trim() || data.name.trim().length < 3) {
+      toast.error("Name must be at least 3 characters long");
+      return;
+    }
+
+    if (!data.description.trim() || data.description.trim().length < 10) {
+      toast.error("Description must be at least 10 characters long");
+      return;
+    }
+
     setLoading(true);
+
     const formData = new FormData();
     formData.append("category", JSON.stringify(data));
     formData.append("file", image);
@@ -36,7 +50,7 @@ const CategoryForm = () => {
       const response = await addCategory(formData);
       if (response.status == 201) {
         setCategories([...categories, response.data]);
-        toast.success("Category Created Successfully!");
+        toast.success("Category created successfully!");
         setData({
           name: "",
           description: "",
@@ -44,11 +58,11 @@ const CategoryForm = () => {
         });
         setImage(false);
       } else {
-        toast.error("Failed to create Category");
+        toast.error("Failed to create category");
       }
     } catch (error) {
       console.log(error);
-      toast.error("Failed to create Category");
+      toast.error("Failed to create category");
     } finally {
       setLoading(false);
     }

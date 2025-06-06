@@ -28,8 +28,6 @@ function Login() {
       const response = await login(data);
       if (response.status === 200) {
         toast.success("Login successfull");
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("role", response.data.role);
         setAuthData(response.data.token, response.data.role);
         navigate("/dashboard");
       }
@@ -51,7 +49,7 @@ function Login() {
           <div className="text-center">
             <h1 className="card-title">Sign in</h1>
             <p className="card-text text-muted">
-              Sign in below to access yout account
+              Sign in below to access your account
             </p>
           </div>
           <div className="mt-4">

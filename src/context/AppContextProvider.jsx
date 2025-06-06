@@ -38,6 +38,12 @@ export default function AppContextProvider({ children }) {
     );
   };
 
+  const setAuthData = (token, role) => {
+    localStorage.setItem("token", token);
+    localStorage.setItem("role", role);
+    setAuth({ token, role });
+  };
+
   useEffect(() => {
     async function loadData() {
       try {
@@ -52,6 +58,8 @@ export default function AppContextProvider({ children }) {
 
         setCategories(response.data);
         setItems(itemresponse.data);
+        console.log(categories);
+        console.log(items);
       } catch (error) {
         console.error("Failed to load data", error);
         // Optional: set error state or show notification
@@ -60,10 +68,6 @@ export default function AppContextProvider({ children }) {
 
     loadData();
   }, []);
-
-  const setAuthData = (token, role) => {
-    setAuth({ token, role });
-  };
 
   const clearCart = () => {
     setCartItems([]);

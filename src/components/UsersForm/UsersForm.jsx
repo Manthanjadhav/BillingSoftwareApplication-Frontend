@@ -19,21 +19,39 @@ export default function UsersForm({ setUsers }) {
   };
 
   const onSubmitHandler = async (e) => {
-    console.log("Inside on SubmitHandler");
     e.preventDefault();
+
+    // Validation
+    if (!data.name.trim() || data.name.trim().length < 3) {
+      toast.error("Name must be at least 3 characters long");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!data.email.trim() || !emailRegex.test(data.email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    if (!data.password || data.password.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await addUser(data);
       setUsers((prev) => [...prev, response.data]);
-      toast.success("User Added Successfull!");
+      toast.success("User added successfully!");
       setData({
         name: "",
         email: "",
         password: "",
+        role: "ROLE_USER",
       });
     } catch (error) {
       console.log(error);
-      toast.error("Unable to add User");
+      toast.error("Unable to add user");
     } finally {
       setLoading(false);
     }
